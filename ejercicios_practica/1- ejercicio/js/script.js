@@ -100,6 +100,7 @@ if (ejercicio == 4) {
     // Utilice bucle "for of"
     for (const e of personas) {
         console.log(e.nombre)
+        console.log(e["nombre"]);
     }
 
 }
@@ -116,11 +117,9 @@ if (ejercicio == 5) {
     // Al terminarse el bucle (luego de ejecutarse todas las iteraciones)
     // deberá imprimir en consola el contenido del array "personas"
     for (let i = 0; i < 2; i++) {
-        let nombre = prompt("Ingrese un nombre")
-        let apellido = prompt("Ingrese un apellido")
         personas.push({
-            "nombre": nombre,
-            "apellido": apellido
+            "nombre": prompt("Ingrese un nombre"),
+            "apellido": prompt("Ingrese un apellido")
         });
     }
     console.log(personas)

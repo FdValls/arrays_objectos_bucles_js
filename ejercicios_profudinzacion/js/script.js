@@ -34,6 +34,23 @@ const data1 = [{
     }
 ]
 
+const data2 = [{
+        id: 7,
+        name: "Squirtle",
+        thumbnail: "https://raw.githubusercontent.com/InoveAlumnos/pokemon_assets_js/main/assets/004.png",
+    },
+    {
+        id: 8,
+        name: "Wartortle",
+        thumbnail: "https://raw.githubusercontent.com/InoveAlumnos/pokemon_assets_js/main/assets/005.png",
+    },
+    {
+        id: 9,
+        name: "Blastoise",
+        thumbnail: "https://raw.githubusercontent.com/InoveAlumnos/pokemon_assets_js/main/assets/006.png",
+    }
+]
+
 /* Enunciado
 1) Utilice el array data para completar la página de pokemones,
 como ejemplo se puede guiar por el siguiente "article", deberá
@@ -59,56 +76,60 @@ en "section".
 
 /* Comienza a escribir su código aquí */
 
-let mapClases = new Map();
-mapClases.set("clase", "pedro");
-mapClases.set("apellidos", "gomez");
+let accumulator = ""
 
-// const contenedor = document.querySelector("section"); // Referencia a la sección donde quiero agregar elementos
+viewPokemons(data)
+viewPokemons(data1)
+viewPokemons(data2)
 
-crearElementosHTML(data);
-crearElementosHTML(data1);
+function viewPokemons(params) {
+    const contenedor = document.querySelector("section");
 
-function crearElementosHTML(array) {
-    const contenedor = document.querySelector("section"); // Referencia a la sección donde quiero agregar elementos
+    params.forEach(p => {
+        accumulator += `
+        <article>
+        <img
+          src="${p.thumbnail}"
+          class="icon-type"
+          alt="icon type"
+        />
+        <p>
+          ${p.name}
+        </p>
+      </article>
+      `
+        contenedor.innerHTML = accumulator;
+    })
 
+    addClass()
 
-    array.forEach(miPokemon => {
-        const article = document.createElement("article"); // Creo el elemento article de HTML
-        // article.classList.add(tipoPokemon.estiloClase); // Asigno la clase a ese articulo
-        const div = document.createElement("div");
+}
 
-        // Creo la imagen
-        const imagen = document.createElement("img");
-        imagen.src = miPokemon.thumbnail;
-        imagen.classList.add("icon-type");
-        imagen.alt = "icon type";
+function addClass() {
+    const art = document.querySelectorAll("article");
 
-        // Ahora creo el <p>
-        const p = document.createElement("p");
-        p.textContent = miPokemon.name
-
-        // Luego agrego los elementos al artículo
-        article.appendChild(imagen);
-        article.appendChild(p);
-
-        div.appendChild(article); // Agrega el article dentro del div
-
-        contenedor.appendChild(div);
-
-        article.addEventListener("mouseover", function() {
-            if (miPokemon.id <= 3) {
-                article.classList.add("planta")
-            } else {
-                article.classList.add("agua")
-            }
-        })
-
-        article.addEventListener("mouseout", function() {
-            if (miPokemon.id <= 3) {
-                article.classList.remove("planta")
-            } else {
-                article.classList.remove("agua")
-            }
-        })
+    art.forEach((art, index) => {
+        if (index <= 2) {
+            art.addEventListener("mouseover", function() {
+                art.classList.add("planta");
+            });
+            art.addEventListener("mouseout", function() {
+                art.classList.remove("planta");
+            });
+        } else if (index >= 3 && index < 6) {
+            art.addEventListener("mouseover", function() {
+                art.classList.add("agua");
+            });
+            art.addEventListener("mouseout", function() {
+                art.classList.remove("agua");
+            });
+        } else {
+            art.addEventListener("mouseover", function() {
+                art.classList.add("fuego");
+            });
+            art.addEventListener("mouseout", function() {
+                art.classList.remove("fuego");
+            });
+        }
     });
 }

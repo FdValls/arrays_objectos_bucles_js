@@ -64,52 +64,28 @@ const misPokemons = [tipoAgua, tipoPlanta, tipoElectricidad, tipoFuego]
 
 // Usando foreach recorro mi lista de objetos y por cada interacion genero una section para mostrar todos los tipo de pokemons
 
-const contenedor = document.querySelector("section"); // Referencia a la sección donde quiero agregar elementos
+let accumulator = ""
 
 misPokemons.forEach(tipoPokemon => {
-    const article = document.createElement("article"); // Creo el elemento article de HTML
-    article.classList.add(tipoPokemon.estiloClase); // Asigno la clase a ese articulo
 
-    // Creo el elemento header
-    const header = document.createElement("div");
-    header.classList.add("header");
-    header.innerHTML = tipoPokemon.titulo;
-
-    // Creo la descripción
-    const descripcion = document.createElement("p");
-    descripcion.id = "descripcion";
-    descripcion.innerHTML = tipoPokemon.descripcion;
-
-    // Creo la imagen
-    const imagen = document.createElement("img");
-    imagen.src = tipoPokemon.icono;
-    imagen.classList.add("icon-type");
-    imagen.alt = "icon type";
-
-    // Luego agrego los elementos al artículo
-    article.appendChild(header);
-    article.appendChild(descripcion);
-    article.appendChild(imagen);
-
-    // Por último agrego el artículo a la sección
-    contenedor.appendChild(article);
+    accumulator += `
+    <article class="${tipoPokemon.estiloClase}">
+    <div class="header">
+        ${tipoPokemon.titulo}
+    </div>            
+    <div>
+        <p id="descripcion">
+            ${tipoPokemon.descripcion}
+        </p>
+        </div>
+    <img
+      src=${tipoPokemon.icono}
+      class="icon-type"
+      alt="icon type"
+    />
+    </article>
+    `
 });
 
-// Template para que utilice:
-`
-<article class="${tipoFuego.estiloClase}">
-<div class="header">
-    ${tipoFuego.titulo}
-</div>            
-<div>
-    <p id="descripcion">
-        ${tipoFuego.descripcion}
-    </p>
-</div>
-<img
-  src=${tipoFuego.icono}
-  class="icon-type"
-  alt="icon type"
-/>
-</article>
-`
+const contenedor = document.querySelector("section"); // Referencia a la sección donde quiero agregar elementos
+contenedor.innerHTML = accumulator;
